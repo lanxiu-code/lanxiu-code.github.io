@@ -67,6 +67,7 @@
         transition: all 0.3s ease;
         width: 100%;
         box-shadow: 0 4px 15px rgba(255, 107, 107, 0.4);
+        margin-bottom: 10px;
       }
 
       button:hover {
@@ -83,67 +84,56 @@
         margin-top: 20px;
       }
 
-      .pair-container {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 15px;
-      }
-
-      .pair-card {
-        perspective: 1000px;
-        width: calc(50% - 10px);
-        min-width: 140px;
-      }
-
-      .pair-inner {
-        position: relative;
-        width: 100%;
-        height: 80px;
-        text-align: center;
-        transition: transform 0.8s;
-        transform-style: preserve-3d;
-        border-radius: 10px;
+      .result-card {
         background: rgba(255, 255, 255, 0.3);
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        border-radius: 15px;
+        padding: 20px;
+        margin-bottom: 20px;
+        backdrop-filter: blur(5px);
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        text-align: center;
       }
 
-      .pair-card.flipped .pair-inner {
-        transform: rotateY(180deg);
-      }
-
-      .pair-front,
-      .pair-back {
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        backface-visibility: hidden;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        padding: 10px;
-      }
-
-      .pair-front {
-        background: rgba(255, 255, 255, 0.2);
-        border-radius: 10px;
-      }
-
-      .pair-back {
-        background: rgba(255, 255, 255, 0.4);
-        border-radius: 10px;
-        transform: rotateY(180deg);
-      }
-
-      .pair-name {
+      .user-pair {
+        font-size: 20px;
         font-weight: bold;
-        font-size: 18px;
-        margin-bottom: 5px;
+        margin: 15px 0;
       }
 
       .pair-label {
-        font-size: 12px;
+        font-size: 14px;
+        opacity: 0.8;
+        margin-bottom: 5px;
+      }
+
+      .dashboard {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+        margin-top: 20px;
+      }
+
+      .person-card {
+        background: rgba(255, 255, 255, 0.2);
+        border-radius: 10px;
+        padding: 15px;
+        text-align: center;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      .person-card:hover {
+        background: rgba(255, 255, 255, 0.3);
+        transform: translateY(-3px);
+      }
+
+      .person-name {
+        font-weight: bold;
+        margin-bottom: 5px;
+      }
+
+      .person-pair {
+        font-size: 14px;
         opacity: 0.8;
       }
 
@@ -155,6 +145,42 @@
 
       .reset-btn:hover {
         background: #3dbeb5;
+      }
+
+      .save-btn {
+        background: #9c88ff;
+        box-shadow: 0 4px 15px rgba(156, 136, 255, 0.4);
+      }
+
+      .save-btn:hover {
+        background: #8470ff;
+      }
+
+      .clear-btn {
+        background: #ff7979;
+        box-shadow: 0 4px 15px rgba(255, 121, 121, 0.4);
+      }
+
+      .clear-btn:hover {
+        background: #ff6348;
+      }
+
+      .notification {
+        position: fixed;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: rgba(0, 0, 0, 0.7);
+        color: white;
+        padding: 10px 20px;
+        border-radius: 30px;
+        z-index: 1000;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+      }
+
+      .notification.show {
+        opacity: 1;
       }
 
       .confetti {
@@ -177,31 +203,188 @@
           opacity: 0;
         }
       }
+
+      .my-result {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        width: 60px;
+        height: 60px;
+        background: #ff6b6b;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 24px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      .my-result:hover {
+        transform: scale(1.1);
+      }
+
+      .my-result-tooltip {
+        position: fixed;
+        bottom: 90px;
+        right: 20px;
+        background: rgba(0, 0, 0, 0.8);
+        color: white;
+        padding: 10px 15px;
+        border-radius: 10px;
+        font-size: 14px;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.3s ease;
+        z-index: 1001;
+        white-space: nowrap;
+      }
+
+      .my-result:hover + .my-result-tooltip,
+      .my-result:focus + .my-result-tooltip {
+        opacity: 1;
+      }
+
+      .user-select {
+        margin-bottom: 15px;
+        text-align: center;
+      }
+
+      .user-select label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: bold;
+      }
+
+      .user-select select {
+        width: 100%;
+        padding: 10px;
+        border: none;
+        border-radius: 10px;
+        background: rgba(255, 255, 255, 0.9);
+        color: #333;
+        font-size: 16px;
+      }
+
+      .loading {
+        display: none;
+        text-align: center;
+        margin: 20px 0;
+        font-size: 18px;
+      }
+
+      .spinner {
+        display: inline-block;
+        width: 30px;
+        height: 30px;
+        border: 3px solid rgba(255, 255, 255, 0.3);
+        border-radius: 50%;
+        border-top-color: white;
+        animation: spin 1s ease-in-out infinite;
+      }
+
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+
+      .pair-pair {
+        margin-top: 20px;
+        background: rgba(255, 255, 255, 0.2);
+        padding: 15px;
+        border-radius: 10px;
+      }
+
+      .pair-title {
+        text-align: center;
+        margin-bottom: 10px;
+        font-size: 16px;
+      }
+
+      .pairs-display {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px;
+      }
+
+      .pair-item {
+        background: rgba(255, 255, 255, 0.3);
+        padding: 8px 12px;
+        border-radius: 20px;
+        font-size: 14px;
+      }
     </style>
   </head>
   <body>
     <div class="container">
-      <h1>🎉 随机配对抽签 🎉</h1>
+      <h1>🔒 秘密配对抽签 🔒</h1>
 
       <div class="input-section">
         <textarea id="nameInput" placeholder="请输入参与人员名单，每行一个人名"></textarea>
         <button id="pairBtn">开始随机配对</button>
+        <button id="saveBtn" class="save-btn" style="display: none">保存结果</button>
+      </div>
+
+      <div class="loading" id="loading">
+        <div class="spinner"></div>
+        <div>正在生成配对，请稍候...</div>
       </div>
 
       <div class="result-section" id="resultSection">
-        <h2>配对结果</h2>
-        <div class="pair-container" id="pairContainer"></div>
-        <button class="reset-btn" id="resetBtn">重新配对</button>
+        <h2>个人配对结果</h2>
+        <div class="result-card" id="userResultCard">
+          <div class="pair-label">请选择您的身份</div>
+          <div class="user-select" id="userSelect">
+            <select id="nameSelect">
+              <option value="">-- 请选择您的名字 --</option>
+            </select>
+          </div>
+          <div class="user-pair" id="userPair"></div>
+        </div>
+
+        <div class="pair-pair" id="pairsDisplay" style="display: none">
+          <div class="pair-title">所有配对结果</div>
+          <div class="pairs-display" id="pairsContainer"></div>
+        </div>
+
+        <h3>所有人员</h3>
+        <div class="dashboard" id="dashboard"></div>
+
+        <button class="reset-btn" id="resetBtn">重新抽签</button>
+        <button class="clear-btn" id="clearBtn">清除结果</button>
       </div>
     </div>
+
+    <div class="my-result" id="myResultIcon">?</div>
+    <div class="my-result-tooltip" id="myResultTooltip"></div>
+
+    <div class="notification" id="notification"></div>
 
     <script>
       document.addEventListener('DOMContentLoaded', function () {
         const nameInput = document.getElementById('nameInput')
         const pairBtn = document.getElementById('pairBtn')
+        const saveBtn = document.getElementById('saveBtn')
         const resultSection = document.getElementById('resultSection')
-        const pairContainer = document.getElementById('pairContainer')
+        const userResultCard = document.getElementById('userResultCard')
+        const userPair = document.getElementById('userPair')
+        const nameSelect = document.getElementById('nameSelect')
+        const userSelect = document.getElementById('userSelect')
+        const dashboard = document.getElementById('dashboard')
         const resetBtn = document.getElementById('resetBtn')
+        const clearBtn = document.getElementById('clearBtn')
+        const loading = document.getElementById('loading')
+        const notification = document.getElementById('notification')
+        const myResultIcon = document.getElementById('myResultIcon')
+        const myResultTooltip = document.getElementById('myResultTooltip')
+        const pairsDisplay = document.getElementById('pairsDisplay')
+        const pairsContainer = document.getElementById('pairsContainer')
+
+        let currentPairs = {}
+        let pairList = []
 
         // 示例人名（可以删除）
         nameInput.value = '张三\n李四\n王五\n赵六\n钱七\n孙八\n周九\n吴十'
@@ -210,78 +393,188 @@
           const names = nameInput.value.split('\n').filter((name) => name.trim() !== '')
 
           if (names.length < 2) {
-            alert('请输入至少两个人名！')
+            showNotification('请输入至少两个人名！')
             return
           }
 
           if (names.length % 2 !== 0) {
-            alert('人数必须是偶数才能两两配对！')
+            showNotification('人数必须是偶数才能两两配对！')
             return
           }
 
-          const shuffledNames = shuffleArray([...names])
-          const pairs = []
+          // 显示加载状态
+          loading.style.display = 'block'
 
-          for (let i = 0; i < shuffledNames.length; i += 2) {
-            pairs.push([shuffledNames[i], shuffledNames[i + 1]])
+          // 模拟配对生成过程，增加视觉效果
+          setTimeout(() => {
+            const pairingResult = performSecretPairing(names)
+            currentPairs = pairingResult.pairs
+            pairList = pairingResult.pairsList
+            displayResults(names, currentPairs)
+            displayPairsList(pairList)
+            saveBtn.style.display = 'block'
+            loading.style.display = 'none'
+            createConfetti()
+          }, 800)
+        })
+
+        nameSelect.addEventListener('change', function () {
+          const selectedName = this.value
+          if (selectedName && currentPairs[selectedName]) {
+            userPair.textContent = currentPairs[selectedName]
+          } else {
+            userPair.textContent = ''
+          }
+        })
+
+        saveBtn.addEventListener('click', function () {
+          const savedData = {
+            pairs: currentPairs,
+            pairsList: pairList,
+            timestamp: new Date().toISOString()
           }
 
-          displayPairs(pairs)
-          createConfetti()
+          localStorage.setItem('secretPairing', JSON.stringify(savedData))
+          showNotification('配对结果已保存')
         })
 
         resetBtn.addEventListener('click', function () {
           resultSection.style.display = 'none'
-          pairContainer.innerHTML = ''
+          userPair.textContent = ''
+          dashboard.innerHTML = ''
+          nameSelect.innerHTML = '<option value="">-- 请选择您的名字 --</option>'
+          saveBtn.style.display = 'none'
+          pairsDisplay.style.display = 'none'
+          currentPairs = {}
+          pairList = []
         })
 
-        function shuffleArray(array) {
-          const newArray = [...array]
-          for (let i = newArray.length - 1; i > 0; i--) {
-            const j = Math.floor(Math.random() * (i + 1))
-            ;[newArray[i], newArray[j]] = [newArray[j], newArray[i]]
+        clearBtn.addEventListener('click', function () {
+          if (confirm('确定要清除所有保存的配对结果吗？')) {
+            localStorage.removeItem('secretPairing')
+            showNotification('已清除所有保存的配对结果')
+            resetBtn.click()
           }
-          return newArray
+        })
+
+        myResultIcon.addEventListener('click', function () {
+          const savedData = JSON.parse(localStorage.getItem('secretPairing') || '{}')
+
+          if (Object.keys(savedData).length > 0) {
+            showNotification('请先选择一个名字查看配对结果')
+            resultSection.style.display = 'block'
+            userSelect.scrollIntoView({ behavior: 'smooth' })
+          } else {
+            showNotification('没有找到保存的配对结果')
+          }
+        })
+
+        function performSecretPairing(names) {
+          const pairs = {}
+          const pairsList = []
+          const usedPairs = new Set() // 用于记录已使用的配对，防止重复
+          let availableNames = [...names]
+
+          // 首先打乱数组顺序
+          shuffleArray(availableNames)
+
+          // 创建配对，确保每个人只能配对一次
+          while (availableNames.length >= 2) {
+            // 随机选择两个人名
+            const index1 = Math.floor(Math.random() * availableNames.length)
+            const name1 = availableNames[index1]
+            availableNames.splice(index1, 1)
+
+            // 找一个不等于name1且未被配对的人
+            let name2 = null
+            let attempts = 0
+
+            while (attempts < availableNames.length) {
+              const index2 = Math.floor(Math.random() * availableNames.length)
+              name2 = availableNames[index2]
+
+              // 检查这对组合是否已被使用（双向检查）
+              const pairKey1 = `${name1}-${name2}`
+              const pairKey2 = `${name2}-${name1}`
+
+              if (name1 !== name2 && !usedPairs.has(pairKey1) && !usedPairs.has(pairKey2)) {
+                usedPairs.add(pairKey1)
+                usedPairs.add(pairKey2)
+                availableNames.splice(index2, 1)
+                break
+              }
+
+              attempts++
+            }
+
+            // 如果找不到合适的配对，重新整个对开始配过程
+            if (name2 === null) {
+              return performSecretPairing(names)
+            }
+
+            // 建立配对关系
+            pairs[name1] = name2
+            pairs[name2] = name1
+            pairsList.push([name1, name2])
+          }
+
+          return { pairs, pairsList }
         }
 
-        function displayPairs(pairs) {
-          pairContainer.innerHTML = ''
+        function displayResults(names, pairs) {
+          // 填充选择框
+          nameSelect.innerHTML = '<option value="">-- 请选择您的名字 --</option>'
+          names.forEach((name) => {
+            const option = document.createElement('option')
+            option.value = name
+            option.textContent = name
+            nameSelect.appendChild(option)
+          })
 
-          pairs.forEach((pair, index) => {
-            const pairCard = document.createElement('div')
-            pairCard.className = 'pair-card'
-            pairCard.innerHTML = `
-                        <div class="pair-inner">
-                            <div class="pair-front">
-                                <div class="pair-label">配对 ${index + 1}</div>
-                                <div>点击查看</div>
-                            </div>
-                            <div class="pair-back">
-                                <div class="pair-name">${pair[0]}</div>
-                                <div class="pair-label">和</div>
-                                <div class="pair-name">${pair[1]}</div>
-                            </div>
-                        </div>
-                    `
+          // 创建人员卡片（只显示名称，不显示配对）
+          dashboard.innerHTML = ''
+          names.forEach((name) => {
+            const personCard = document.createElement('div')
+            personCard.className = 'person-card'
+            personCard.innerHTML = `
+              <div class="person-name">${name}</div>
+              <div class="person-pair">点击查看配对</div>
+            `
 
-            pairCard.addEventListener('click', function () {
-              this.classList.toggle('flipped')
+            personCard.addEventListener('click', function () {
+              nameSelect.value = name
+              userPair.textContent = pairs[name] || '未找到配对'
+
+              // 滚动到结果区域
+              userResultCard.scrollIntoView({ behavior: 'smooth' })
             })
 
-            pairContainer.appendChild(pairCard)
+            dashboard.appendChild(personCard)
           })
 
           resultSection.style.display = 'block'
+        }
 
-          // 延迟后自动翻转所有卡片
+        function displayPairsList(pairs) {
+          // 显示所有配对结果
+          pairsContainer.innerHTML = ''
+          pairs.forEach((pair) => {
+            const pairItem = document.createElement('div')
+            pairItem.className = 'pair-item'
+            pairItem.textContent = `${pair[0]} &${pair[1]}`
+            pairsContainer.appendChild(pairItem)
+          })
+
+          pairsDisplay.style.display = 'block'
+        }
+
+        function showNotification(message) {
+          notification.textContent = message
+          notification.classList.add('show')
+
           setTimeout(() => {
-            const cards = document.querySelectorAll('.pair-card')
-            cards.forEach((card) => {
-              setTimeout(() => {
-                card.classList.add('flipped')
-              }, Math.random() * 500)
-            })
-          }, 500)
+            notification.classList.remove('show')
+          }, 3000)
         }
 
         function createConfetti() {
@@ -293,7 +586,7 @@
             confetti.style.left = Math.random() * 100 + 'vw'
             confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)]
             confetti.style.width = Math.random() * 10 + 5 + 'px'
-            confetti.style.height = Math.random() * 10 + 5 + 'px'
+            confetti.style.height = confetti.style.width
             confetti.style.animationDuration = Math.random() * 3 + 2 + 's'
             confetti.style.animationDelay = Math.random() * 2 + 's'
 
@@ -303,6 +596,21 @@
               confetti.remove()
             }, 5000)
           }
+        }
+
+        function shuffleArray(array) {
+          const newArray = [...array]
+          for (let i = newArray.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1))
+            ;[newArray[i], newArray[j]] = [newArray[j], newArray[i]]
+          }
+          return newArray
+        }
+
+        // 加载保存的结果
+        const savedData = JSON.parse(localStorage.getItem('secretPairing') || '{}')
+        if (Object.keys(savedData).length > 0) {
+          showNotification('检测到已保存的配对结果，点击右下角查看')
         }
       })
     </script>
